@@ -1,2 +1,3 @@
-# spextrus
-🌈  Colorful Spotify experience
+spextrum
+======
+🌈 Colorful Spotify experience

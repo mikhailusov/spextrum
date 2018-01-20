@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		body {
+			font-family: circular,Helvetica,Arial,sans-serif;
+			background: linear-gradient(to right, #14B37D, #00755E);
+			/*background: linear-gradient(to right, rgb(54, 61, 68), rgb(230, 231, 227));*/
+		}
+		h1 {
+			font-size: 82px;
+		    line-height: 85%;
+		    font-weight: bold;
+		    letter-spacing: -4px;
+			color: white;
+			margin-left: 40px;
+			/*margin-top: 20px;*/
+			margin-bottom: 0px;
+		}
+		h2 {
+			font-size: 52px;
+		    line-height: 85%;
+		    font-weight: bold;
+		    letter-spacing: -3px;
+			color: white;
+			margin-top: 10px;
+			margin-bottom: 0px;
+		}
+		h3 {
+			font-size: 28px;
+		    line-height: 75%;
+		    font-weight: bolder;
+		    letter-spacing: -1px;
+			color: white;
+			margin-top: 10px;
+		}
+		footer {
+            width: 100%;
+            bottom: 10px;
+            text-align: center;
+            line-height: 85%;
+            color: white;
+            position: fixed;
+        }
+        #album {
+        	display: block;
+		    margin-left: auto;
+		    margin-right: auto;
+		    width: 40%;
+		    text-align: center;
+        }
+        #login, #loggedin {
+        display: none;
+      }
+      .text-overflow {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 500px;
+      }
+	</style>
+<meta charset="UTF-8">
+<title>Spextrum</title>
+</head>
+<body>
+<h1>Spextrum</h1>
+
+<div id="album">
+
+<div id="login">
+<h2>Colorful Spotify experience</h2>
+<h3>please log in</h3>
+<a href="/login">login</a>
+</div>
+
+
+  <div id="loggedin">
+  	<div id="now-playing"></div>
+    <button class="btn btn-default" id="obtain-new-token">Obtain new token using the refresh token</button>
+  </div>
+</div>
+
+<script id="now-playing" type="text/x-handlebars-template">
+</script>
+
+    
+
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="/js/spotify-web-api.js"></script>
+    <script>
+      (function() {
+
+        /**
+         * Obtains parameters from the hash of the URL
+         * @return Object
+         */
+        function getHashParams() {
+          var hashParams = {};
+          var e, r = /([^&;=]+)=?([^&;]*)/g,
+              q = window.location.hash.substring(1);
+          while ( e = r.exec(q)) {
+             hashParams[e[1]] = decodeURIComponent(e[2]);
+          }
+          return hashParams;
+        }
+
+        var spotifyApi = new SpotifyWebApi();
+
+        var nowPlayingPlaceholder = document.getElementById('now-playing');
+
+        var params = getHashParams();
+
+        var access_token = params.access_token,
+            refresh_token = params.refresh_token,
+            error = params.error;
+
+        if (error) {
+          alert('There was an error during the authentication');
+        } else {
+          if (access_token) {
+
+            $.ajax({
+                url: 'https://api.spotify.com/v1/me',
+                headers: {
+                  'Authorization': 'Bearer ' + access_token
+                },
+                success: function(response) {
+                  spotifyApi.setAccessToken(access_token);				
+
+                  $('#login').hide();
+                  $('#loggedin').show();
+
+
+      			  var nowPlaying = spotifyApi.getMyCurrentPlayingTrack()
+      			  .then(function(data) {
+				    console.log('User playlists', data);
+				    nowPlayingPlaceholder.innerHTML = '<h2>'+data.item.name+'</h2>'
+				    + '<h3>'+data.item.artists[0].name + '</h3>'
+				    + '<img src="'+data.item.album.images[0].url+'" / >'; 
+                  $('#now-playing').show();
+				  }, function(err) {
+				    console.error(err);
+				  });
+
+                  
+                }
+            });
+          } else {
+              // render initial screen
+              $('#login').show();
+              $('#loggedin').hide();
+          }
+
+          document.getElementById('obtain-new-token').addEventListener('click', function() {
+            $.ajax({
+              url: '/refresh_token',
+              data: {
+                'refresh_token': refresh_token
+              }
+            }).done(function(data) {
+              access_token = data.access_token;
+            });
+          }, false);
+        }
+      })();
+    </script>
+  
+
+<footer>
+</footer>
+</body>
+</html>
