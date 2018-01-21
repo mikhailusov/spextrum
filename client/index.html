@@ -122,7 +122,7 @@
 	  cursor: pointer;
 	}
 	</style>
-	<link rel="stylesheet" type="text/css" href="/css/infinite.css" />
+
 <meta charset="UTF-8">
 <title>Spextrum</title>
 </head>
@@ -142,7 +142,7 @@
   <div id="loggedin">
   	<div id="prev">|◀</div>
   	<div id="next">▶|</div>
-  	<div id="now-playing"><div id="play"></div><div id="pause"></div></div>
+  	<div id="now-playing"><div id="play"></div></div>
     <!-- <button class="btn btn-default" id="obtain-new-token">Obtain new token using the refresh token</button> -->
   </div>
 </div>
@@ -189,7 +189,7 @@
 		function updatePlayState(is_playing) {
 		    var playButton = document.getElementById('middle');
 		    if (is_playing) {
-		    	playButton.innerHTML = '<div id="pause">||</div>';
+		    	playButton.innerHTML = '<div id="play">||</div>';
 		    	
 		    } else {
 		    	playButton.innerHTML = '<div id="play">▶</div>';
@@ -209,6 +209,23 @@
 
 				    updatePlayState(data.is_playing);
 
+            document.getElementById('middle').addEventListener('click', function() {
+                  var playButton = document.getElementById("play");
+                  if (playButton.innerHTML == '||') {
+                    spotifyApi.pause({}).then(function() {
+                    }, function(err) {
+                      console.error(err);
+                    });
+                    updatePlayState(false);
+                  } else {
+                    spotifyApi.play({}).then(function() {
+                    }, function(err) {
+                      console.error(err);
+                    });
+                    updatePlayState(true);
+                  }
+             }, false);
+
 				    // colors
 				    var img = new Image();
 				    img.src = data.item.album.images[2].url;
@@ -220,10 +237,7 @@
 				    	switchBackground(colors);
 				    }
 
-				    
-					
-
-                  // $('#now-playing').show();
+            // $('#now-playing').show();
 				  }, function(err) {
 				    console.error(err);
 				  });
@@ -281,7 +295,7 @@
         // NEXT button
         document.getElementById('next').addEventListener('click', function() {
             spotifyApi.skipToNext({}).then(async function() {
-            sleep(200).then(() => {
+            sleep(300).then(() => {
 			    refreshTrack();	
 		    	console.log('next');
 			})
@@ -294,7 +308,7 @@
         // PREV button
         document.getElementById('prev').addEventListener('click', function() {
             spotifyApi.skipToPrevious({}).then(async function() {
-            sleep(200).then(() => {
+            sleep(300).then(() => {
 			    refreshTrack();	
 		    	console.log('prev');
 			})
@@ -303,25 +317,25 @@
 		  });
          }, false);
 
-        // PLAY/PAUSE button
-        document.getElementById('play').addEventListener('click', function() {
-		    spotifyApi.pause({}).then(function() {
-		    console.log("pause");
-		    updatePlayState(false);
-		  }, function(err) {
-		    console.error(err);
-		  });
-		 }, false);
+  //       // PLAY/PAUSE button
+  //       document.getElementById('play').addEventListener('click', function() {
+		//     spotifyApi.pause({}).then(function() {
+		//     console.log("pause");
+		//     updatePlayState(false);
+		//   }, function(err) {
+		//     console.error(err);
+		//   });
+		//  }, false);
 
-		// PLAY/PAUSE button
-        document.getElementById('pause').addEventListener('click', function() {
-		    spotifyApi.play({}).then(function() {
-		    console.log("play");
-		    updatePlayState(true);
-		  }, function(err) {
-		    console.error(err);
-		  });
-		 }, false);
+		// // PLAY/PAUSE button
+  //       document.getElementById('pause').addEventListener('click', function() {
+		//     spotifyApi.play({}).then(function() {
+		//     console.log("play");
+		//     updatePlayState(true);
+		//   }, function(err) {
+		//     console.error(err);
+		//   });
+		//  }, false);
 
 
         }
