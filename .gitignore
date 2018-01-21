@@ -1,3 +1,3 @@
-node_modules/
+server/node_modules/
 .DS_Store
-config/local.json
+server/config/local.json
