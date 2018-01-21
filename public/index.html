@@ -8,7 +8,7 @@
 			/*background: linear-gradient(to right, rgb(54, 61, 68), rgb(230, 231, 227));*/
 		}
 		h1 {
-			font-size: 82px;
+			font-size: 62px;
 		    line-height: 85%;
 		    font-weight: bold;
 		    letter-spacing: -4px;
@@ -42,11 +42,10 @@
             color: white;
             position: fixed;
         }
-        #album {
+        #now-playing {
         	display: block;
 		    margin-left: auto;
 		    margin-right: auto;
-		    width: 40%;
 		    text-align: center;
         }
         #login, #loggedin {
@@ -58,25 +57,94 @@
         white-space: nowrap;
         width: 500px;
       }
+      #loggedin, #login {
+      		margin-left: auto;
+		    margin-right: auto;
+		    /*width: 50%;*/
+		    text-align: center;
+      		/*border: 1px solid black;*/
+      		width: 700px;
+      		min-width: 750px;
+      		color: white;
+      }
+      #login{
+      	margin-top: 200px;
+      }
+      #prev {
+      	float: left;
+      	letter-spacing: -10px;
+      }
+      #next {
+      	float: right;
+      	letter-spacing: -6px;
+      }
+      #next, #prev {
+      	margin-top: 380px;
+      	color: white;
+      	font-size: 42px;
+      	width: 36px;
+      	cursor: pointer;
+      }
+      #np-cover {
+      	opacity: 1;
+      	transition: .2s ease;
+  		backface-visibility: hidden;
+  		-webkit-box-reflect: below 2px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(70%, transparent) , to(rgba(250, 250, 250, 0.15)));
+      }
+      #np-cover-container {
+      	background-color: black;
+      	position: relative;
+      	width: 640px;
+      	height: 640px;
+      	margin-left: 55px;
+
+      }
+      #np-cover-container:hover #np-cover {
+		  opacity: 0.3;
+		}
+	.middle {
+	  transition: .5s ease;
+	  opacity: 0;
+	  position: absolute;
+	  top: 50%;
+	  left: 50%;
+	  transform: translate(-50%, -50%);
+	  -ms-transform: translate(-50%, -50%);
+	  text-align: center;
+	}	
+	#np-cover-container:hover .middle {
+	  opacity: 1;
+	}
+
+	.text {
+	  color: white;
+	  font-size: 64px;
+	  padding: 16px 32px;
+	  cursor: pointer;
+	}
 	</style>
+	<link rel="stylesheet" type="text/css" href="/css/infinite.css" />
 <meta charset="UTF-8">
 <title>Spextrum</title>
 </head>
 <body>
 <h1>Spextrum</h1>
 
-<div id="album">
+
 
 <div id="login">
 <h2>Colorful Spotify experience</h2>
+<p>What is it?</p>
 <h3>please log in</h3>
 <a href="/login">login</a>
 </div>
 
 
   <div id="loggedin">
+  	<div id="prev">|◀</div>
+  	<div id="next">▶|</div>
   	<div id="now-playing"></div>
-    <button class="btn btn-default" id="obtain-new-token">Obtain new token using the refresh token</button>
+    <!-- <button class="btn btn-default" id="obtain-new-token">Obtain new token using the refresh token</button> -->
   </div>
 </div>
 
@@ -106,17 +174,51 @@
         }
 
         function switchBackground(colors) {
+        	// var x = Math.random() > 0.5 ? 1 : 0;
         	document.body.style.background = 
-        	'linear-gradient(to right, '+getRgb(colors[0])+' ,'+getRgb(colors[1])+' ,'+getRgb(colors[2])+')';
+        	'linear-gradient(to right, '+getRgb(colors[0])+' ,'+getRgb(colors[1])+' ,'+getRgb(colors[0])+')';
         }
 
         function getRgb(color) {
         	return 'rgb(' + color[0] + ',' + color[1] + ',' + color[2] + ')';
         }
 
+        function sleep (ms) {
+		  return new Promise((resolve) => setTimeout(resolve, ms));
+		}
+
+        function refreshTrack() {
+        	var nowPlaying = spotifyApi.getMyCurrentPlayingTrack()
+      			  .then(function(data) {
+
+      			  	var nowPlayingPlaceholder = document.getElementById('now-playing');
+				    console.log('Current playback: ', data);
+				    nowPlayingPlaceholder.innerHTML = '<h2>'+data.item.name+'</h2>'
+				    + '<h3>'+data.item.artists[0].name + '</h3>'
+				    + '<div id="np-cover-container"><img src="'+data.item.album.images[0].url+'" id="np-cover" /><div class="middle"><div class="text">||</div></div></div>'; 
+
+
+				    // colors
+				    var img = new Image();
+				    img.src = data.item.album.images[2].url;
+				    img.crossOrigin = "Anonymous";
+				    img.onload = function(){
+				    	var colorThief = new ColorThief();
+				    	var colors = colorThief.getPalette(img, 2);
+				    	console.log(colors);
+				    	switchBackground(colors);
+				    }
+					
+
+                  // $('#now-playing').show();
+				  }, function(err) {
+				    console.error(err);
+				  });
+        }
+
         var spotifyApi = new SpotifyWebApi();
 
-        var nowPlayingPlaceholder = document.getElementById('now-playing');
+        
 
         var params = getHashParams();
 
@@ -141,30 +243,7 @@
                   $('#loggedin').show();
 
 
-      			  var nowPlaying = spotifyApi.getMyCurrentPlayingTrack()
-      			  .then(function(data) {
-				    console.log('User playlists', data);
-				    nowPlayingPlaceholder.innerHTML = '<h2>'+data.item.name+'</h2>'
-				    + '<h3>'+data.item.artists[0].name + '</h3>'
-				    + '<img src="'+data.item.album.images[0].url+'" id="np-cover" / >'; 
-
-
-				    // colors
-				    var img = new Image();
-				    img.src = data.item.album.images[0].url;
-				    img.crossOrigin = "Anonymous";
-				    img.onload = function(){
-				    	var colorThief = new ColorThief();
-				    	var colors = colorThief.getPalette(img, 2);
-				    	console.log(colors);
-				    	switchBackground(colors);
-				    }
-					
-
-                  $('#now-playing').show();
-				  }, function(err) {
-				    console.error(err);
-				  });
+      			  refreshTrack();
 
                   
                 }
@@ -175,16 +254,39 @@
               $('#loggedin').hide();
           }
 
-          document.getElementById('obtain-new-token').addEventListener('click', function() {
-            $.ajax({
-              url: '/refresh_token',
-              data: {
-                'refresh_token': refresh_token
-              }
-            }).done(function(data) {
-              access_token = data.access_token;
-            });
-          }, false);
+          // document.getElementById('obtain-new-token').addEventListener('click', function() {
+          //   $.ajax({
+          //     url: '/refresh_token',
+          //     data: {
+          //       'refresh_token': refresh_token
+          //     }
+          //   }).done(function(data) {
+          //     access_token = data.access_token;
+          //   });
+          // }, false);
+
+        document.getElementById('next').addEventListener('click', function() {
+            spotifyApi.skipToNext({}).then(async function() {
+            sleep(200).then(() => {
+			    refreshTrack();	
+		    	console.log('next');
+			})
+		  }, function(err) {
+		    console.error(err);
+		  });
+         }, false);
+
+        document.getElementById('prev').addEventListener('click', function() {
+            spotifyApi.skipToPrevious({}).then(async function() {
+            sleep(200).then(() => {
+			    refreshTrack();	
+		    	console.log('prev');
+			})
+		  }, function(err) {
+		    console.error(err);
+		  });
+         }, false);
+
         }
       })();
     </script>
