@@ -228,24 +228,21 @@
 
 				    // colors
 				    var img = new Image();
-				    img.src = data.item.album.images[2].url;
-				    img.crossOrigin = "Anonymous";
+				    img.src = data.item.album.images[2].url + '?' + (new Date()).getTime();
+				    img.crossOrigin = '';
 				    img.onload = function(){
-				    	var colorThief = new ColorThief();
-				    	var colors = colorThief.getPalette(img, 2);
-				    	console.log(colors);
-				    	switchBackground(colors);
+              var colors = colorThief.getPalette(img, 2);
+              console.log(colors);
+              switchBackground(colors);
 				    }
-
-            // $('#now-playing').show();
 				  }, function(err) {
 				    console.error(err);
 				  });
         }
 
-        var spotifyApi = new SpotifyWebApi();
+        var spotifyApi = new SpotifyWebApi();   
 
-        
+        var colorThief = new ColorThief();     
 
         var params = getHashParams();
 
@@ -296,46 +293,26 @@
         document.getElementById('next').addEventListener('click', function() {
             spotifyApi.skipToNext({}).then(async function() {
             sleep(300).then(() => {
-			    refreshTrack();	
-		    	console.log('next');
-			})
-		  }, function(err) {
-		    console.error(err);
-		  });
-         }, false);
+  			     refreshTrack();	
+  		    	 console.log('next');
+  			     })
+    		  }, function(err) {
+    		    console.error(err);
+    		  });
+        }, false);
 
 
         // PREV button
         document.getElementById('prev').addEventListener('click', function() {
             spotifyApi.skipToPrevious({}).then(async function() {
             sleep(300).then(() => {
-			    refreshTrack();	
-		    	console.log('prev');
-			})
-		  }, function(err) {
-		    console.error(err);
-		  });
-         }, false);
-
-  //       // PLAY/PAUSE button
-  //       document.getElementById('play').addEventListener('click', function() {
-		//     spotifyApi.pause({}).then(function() {
-		//     console.log("pause");
-		//     updatePlayState(false);
-		//   }, function(err) {
-		//     console.error(err);
-		//   });
-		//  }, false);
-
-		// // PLAY/PAUSE button
-  //       document.getElementById('pause').addEventListener('click', function() {
-		//     spotifyApi.play({}).then(function() {
-		//     console.log("play");
-		//     updatePlayState(true);
-		//   }, function(err) {
-		//     console.error(err);
-		//   });
-		//  }, false);
+			       refreshTrack();	
+  		    	 console.log('prev');
+  			 })
+  		  }, function(err) {
+  		    console.error(err);
+  		  });
+      }, false);
 
 
         }
