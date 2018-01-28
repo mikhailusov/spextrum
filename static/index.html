@@ -1,161 +1,162 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<style type="text/css">
-		body {
-			font-family: circular,Helvetica,Arial,sans-serif;
-			background: linear-gradient(to right, #14B37D, #00755E);
-			/*background: linear-gradient(to right, rgb(54, 61, 68), rgb(230, 231, 227));*/
-		}
-		h1 {
-			font-size: 62px;
-		    line-height: 85%;
-		    font-weight: bold;
-		    letter-spacing: -4px;
-			color: white;
-			margin-left: 40px;
-			/*margin-top: 20px;*/
-			margin-bottom: 0px;
-		}
-		h2 {
-			font-size: 52px;
-		    line-height: 85%;
-		    font-weight: bold;
-		    letter-spacing: -3px;
-			color: white;
-			margin-top: 10px;
-			margin-bottom: 0px;
-		}
-		h3 {
-			font-size: 28px;
-		    line-height: 75%;
-		    font-weight: bolder;
-		    letter-spacing: -1px;
-			color: white;
-			margin-top: 10px;
-		}
-		footer {
-            width: 100%;
-            bottom: 10px;
-            text-align: center;
-            line-height: 85%;
-            color: white;
-            position: fixed;
-        }
-        #now-playing {
-        	display: block;
-		    margin-left: auto;
-		    margin-right: auto;
-		    text-align: center;
-        }
-        #login, #loggedin {
-        display: none;
-      }
-      .text-overflow {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        width: 500px;
-      }
-      #loggedin, #login {
-      		margin-left: auto;
-		    margin-right: auto;
-		    /*width: 50%;*/
-		    text-align: center;
-      		/*border: 1px solid black;*/
-      		width: 700px;
-      		min-width: 750px;
-      		color: white;
-      }
-      #login{
-      	margin-top: 200px;
-      }
-      #prev {
-      	float: left;
-      	letter-spacing: -10px;
-      }
-      #next {
-      	float: right;
-      	letter-spacing: -6px;
-      }
-      #next, #prev {
-      	margin-top: 380px;
-      	color: white;
-      	font-size: 42px;
-      	width: 36px;
-      	cursor: pointer;
-      }
-      #np-cover {
-      	opacity: 1;
-      	transition: .2s ease;
-  		backface-visibility: hidden;
-  		-webkit-box-reflect: below 2px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(70%, transparent) , to(rgba(250, 250, 250, 0.15)));
-      }
-      #np-cover-container {
-      	background-color: black;
-      	position: relative;
-      	width: 640px;
-      	height: 640px;
-      	margin-left: 55px;
-
-      }
-      #np-cover-container:hover #np-cover {
-		  opacity: 0.3;
-		}
-	#middle {
-	  transition: .5s ease;
-	  opacity: 0;
-	  position: absolute;
-	  top: 50%;
-	  left: 50%;
-	  transform: translate(-50%, -50%);
-	  -ms-transform: translate(-50%, -50%);
-	  text-align: center;
-	}	
-	#np-cover-container:hover #middle {
-	  opacity: 1;
-	}
-	#play, #pause {
-	  color: white;
-	  font-size: 64px;
-	  padding: 16px 32px;
-	  cursor: pointer;
-	}
-	</style>
-
-<meta charset="UTF-8">
-<title>Spextrum</title>
+<style type="text/css">
+body {
+    font-family: circular,Helvetica,Arial,sans-serif;
+    background: linear-gradient(to right, #14B37D, #00755E);
+    min-height: 900px;
+}
+h1 {
+    font-size: 62px;
+    line-height: 85%;
+    font-weight: bold;
+    letter-spacing: -4px;
+    color: white;
+    margin-left: 40px;
+    margin-bottom: 0px;
+}
+h2 {
+    font-size: 52px;
+    line-height: 85%;
+    font-weight: bold;
+    letter-spacing: -3px;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+h3 {
+    font-size: 28px;
+    line-height: 75%;
+    font-weight: bolder;
+    letter-spacing: -1px;
+    color: white;
+    margin-top: 10px;
+}
+h4 {
+    font-size: 38px;
+    line-height: 75%;
+    font-weight: bold;
+    letter-spacing: -1px;
+    color: white;
+    margin-left: 20px;
+    margin-bottom: 0px;
+    margin-top: 20px;
+}
+footer {
+    width: 100%;
+    bottom: 10px;
+    text-align: center;
+    line-height: 85%;
+    color: white;
+    position: fixed;
+}
+#now-playing {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+#login, #loggedin {
+    display: none;
+}
+.text-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 500px;
+}
+#loggedin, #login {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 700px;
+    min-width: 750px;
+    color: white;
+}
+#login{
+    margin-top: 200px;
+}
+#prev {
+    float: left;
+    letter-spacing: -10px;
+}
+#next {
+    float: right;
+    letter-spacing: -6px;
+}
+#next, #prev {
+    margin-top: 380px;
+    color: white;
+    font-size: 42px;
+    width: 36px;
+    cursor: pointer;
+}
+#np-cover {
+    opacity: 1;
+    transition: .2s ease;
+    backface-visibility: hidden;
+    -webkit-box-reflect: below 2px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(70%, transparent) , to(rgba(250, 250, 250, 0.15)));
+}
+#np-cover-container {
+    background-color: black;
+    position: relative;
+    width: 640px;
+    height: 640px;
+    margin-left: 55px;
+}
+#np-cover-container:hover #np-cover {
+  opacity: 0.3;
+}
+#middle {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+}
+#np-cover-container:hover #middle {
+    opacity: 1;
+}
+#play, #pause {
+    color: white;
+    font-size: 64px;
+    padding: 16px 32px;
+    cursor: pointer;
+}
+</style>
+    <meta charset="UTF-8">
+    <title>Spextrum</title>
 </head>
 <body>
-<h1>Spextrum</h1>
-
-
+<div id="logo"><h1>Spextrum</h1></div>
 
 <div id="login">
-<h2>Colorful Spotify experience</h2>
-<p>What is it?</p>
-<h3>please log in</h3>
-<a href="/login">login</a>
+    <h2>Colorful Spotify experience</h2>
+    <p>What is it?</p>
+    <h3>please log in</h3>
+    <a href="/login">login</a>
 </div>
 
-
-  <div id="loggedin">
-  	<div id="prev">|◀</div>
-  	<div id="next">▶|</div>
-  	<div id="now-playing"><div id="play"></div></div>
+<div id="loggedin">
+    <div id="prev">|◀</div>
+    <div id="next">▶|</div>
+    <div id="now-playing">
+        <div id="play"></div>
+    </div>
     <!-- <button class="btn btn-default" id="obtain-new-token">Obtain new token using the refresh token</button> -->
-  </div>
+</div>
 </div>
 
-<script id="now-playing" type="text/x-handlebars-template">
-</script>
+<script id="now-playing" type="text/x-handlebars-template"></script>
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="/js/spotify-web-api.min.js"></script>
+<script src="/js/color-thief.min.js"></script>
 
-    
-
-    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-    <script src="/js/spotify-web-api.min.js"></script>
-    <script src="/js/color-thief.min.js"></script>
-    <script>
+<script>
       (function() {
 
         /**
@@ -173,43 +174,43 @@
         }
 
         function switchBackground(colors) {
-        	// var x = Math.random() > 0.5 ? 1 : 0;
-        	document.body.style.background = 
-        	'linear-gradient(to right, '+getRgb(colors[0])+' ,'+getRgb(colors[1])+' ,'+getRgb(colors[0])+')';
+          // var x = Math.random() > 0.5 ? 1 : 0;
+          document.body.style.background =
+          'linear-gradient(to right, '+getRgb(colors[0])+' ,'+getRgb(colors[1])+' ,'+getRgb(colors[0])+')';
         }
 
         function getRgb(color) {
-        	return 'rgb(' + color[0] + ',' + color[1] + ',' + color[2] + ')';
+          return 'rgb(' + color[0] + ',' + color[1] + ',' + color[2] + ')';
         }
 
         function sleep (ms) {
-		  return new Promise((resolve) => setTimeout(resolve, ms));
-		}
+      return new Promise((resolve) => setTimeout(resolve, ms));
+    }
 
-		function updatePlayState(is_playing) {
-		    var playButton = document.getElementById('middle');
-		    if (is_playing) {
-		    	playButton.innerHTML = '<div id="play">||</div>';
-		    	
-		    } else {
-		    	playButton.innerHTML = '<div id="play">▶</div>';
-		    	
-		    }
-		}
+    function updatePlayState(is_playing) {
+        var playButton = document.getElementById('middle');
+        if (is_playing) {
+          playButton.innerHTML = '<div id="play">||</div>';
 
-        function refreshTrack() {
-        	var nowPlaying = spotifyApi.getMyCurrentPlayingTrack()
-      			  .then(function(data) {
+        } else {
+          playButton.innerHTML = '<div id="play">▶</div>';
 
-      			  	var nowPlayingPlaceholder = document.getElementById('now-playing');
-				    console.log('Current playback: ', data);
-				    nowPlayingPlaceholder.innerHTML = '<h2>'+data.item.name+'</h2>'
-				    + '<h3>'+data.item.artists[0].name + '</h3>'
-				    + '<div id="np-cover-container"><img src="'+data.item.album.images[0].url+'" id="np-cover" /><div id="middle"></div></div>'; 
+        }
+    }
 
-				    updatePlayState(data.is_playing);
+        function setTrack(data) {
+          var nowPlayingPlaceholder = document.getElementById('now-playing');
+            // console.log('Current playback: ', data);
+            nowPlayingPlaceholder.innerHTML = '<h2>'+data.item.name+'</h2>'
+            + '<h3>'+data.item.artists[0].name + '</h3>'
+            + '<div id="np-cover-container"><img src="'+data.item.album.images[0].url+'" id="np-cover" /><div id="middle"></div></div>';
 
-            document.getElementById('middle').addEventListener('click', function() {
+          var logo = document.getElementById('logo');
+          logo.innerHTML = '<h4>Spextrum</h4>';
+
+          updatePlayState(data.is_playing);
+
+          document.getElementById('middle').addEventListener('click', function() {
                   var playButton = document.getElementById("play");
                   if (playButton.innerHTML == '||') {
                     spotifyApi.pause({}).then(function() {
@@ -218,7 +219,11 @@
                     });
                     updatePlayState(false);
                   } else {
-                    spotifyApi.play({}).then(function() {
+                    var playArgs = {};
+                    if(data.devices != '') {
+                      playArgs.device_id = data.devices.devices[0].id;
+                    }
+                    spotifyApi.play(playArgs).then(function() {
                     }, function(err) {
                       console.error(err);
                     });
@@ -226,24 +231,51 @@
                   }
              }, false);
 
-				    // colors
-				    var img = new Image();
-				    img.src = data.item.album.images[2].url + '?' + (new Date()).getTime();
-				    img.crossOrigin = '';
-				    img.onload = function(){
+            // colors
+            var img = new Image();
+            img.src = data.item.album.images[2].url + '?' + (new Date()).getTime();
+            img.crossOrigin = '';
+            img.onload = function(){
               var colors = colorThief.getPalette(img, 2);
-              console.log(colors);
               switchBackground(colors);
-				    }
-				  }, function(err) {
-				    console.error(err);
-				  });
+            }
         }
 
-        var spotifyApi = new SpotifyWebApi();   
+        function refreshTrack() {
+          var nowPlaying = spotifyApi.getMyCurrentPlayingTrack()
+              .then(function(data) {
 
-        var colorThief = new ColorThief();     
+                if (data != '') {
+                  setTrack(data);
+                } else {
+                  var devices = spotifyApi.getMyDevices()
+                        .then(function(data) {
+                          this.devices = data;
+                        }, function(err) {
+                          console.error(err);
+                        });
 
+                  var recentTrack = spotifyApi.getMyRecentlyPlayedTracks({"limit":1})
+                      .then(function(data) {
+                        data.item = data.items[0].track;
+                        data.is_playing = false;
+                        data.devices = this.devices;
+                        setTrack(data);
+                        return;
+                      }, function(err) {
+                    console.error(err);
+                  });
+                }
+
+                
+
+          }, function(err) {
+            console.error(err);
+          });
+        }
+
+        var spotifyApi = new SpotifyWebApi();
+        var colorThief = new ColorThief();
         var params = getHashParams();
 
         var access_token = params.access_token,
@@ -254,22 +286,21 @@
           alert('There was an error during the authentication');
         } else {
           if (access_token) {
-
             $.ajax({
                 url: 'https://api.spotify.com/v1/me',
                 headers: {
                   'Authorization': 'Bearer ' + access_token
                 },
                 success: function(response) {
-                  spotifyApi.setAccessToken(access_token);				
+                  spotifyApi.setAccessToken(access_token);
 
                   $('#login').hide();
                   $('#loggedin').show();
 
 
-      			  refreshTrack();
+              refreshTrack();
 
-                  
+
                 }
             });
           } else {
@@ -293,12 +324,12 @@
         document.getElementById('next').addEventListener('click', function() {
             spotifyApi.skipToNext({}).then(async function() {
             sleep(300).then(() => {
-  			     refreshTrack();	
-  		    	 console.log('next');
-  			     })
-    		  }, function(err) {
-    		    console.error(err);
-    		  });
+             refreshTrack();
+             console.log('next');
+             })
+          }, function(err) {
+            console.error(err);
+          });
         }, false);
 
 
@@ -306,20 +337,18 @@
         document.getElementById('prev').addEventListener('click', function() {
             spotifyApi.skipToPrevious({}).then(async function() {
             sleep(300).then(() => {
-			       refreshTrack();	
-  		    	 console.log('prev');
-  			 })
-  		  }, function(err) {
-  		    console.error(err);
-  		  });
+             refreshTrack();
+             console.log('prev');
+         })
+        }, function(err) {
+          console.error(err);
+        });
       }, false);
 
 
         }
       })();
-    </script>
-  
-
+</script>
 <footer>
 </footer>
 </body>
