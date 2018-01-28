@@ -11,7 +11,7 @@ Spextrum brings full-size album art to the center of attention and matches backg
 Try to open spextrum full-screen on your laptor or big-screen TV when it's dark and enjoy.
 
 ## Spextrum gallery playlist
-Want some inspiration? Check out your [playlist](https://open.spotify.com/user/1298409056/playlist/7cdIt8iiiPYSo7jxc70yDB?si=lBZPMGMnSXO_8KtRZnvXHg)
+Want some inspiration? Check out our [playlist](https://open.spotify.com/user/1298409056/playlist/7cdIt8iiiPYSo7jxc70yDB?si=lBZPMGMnSXO_8KtRZnvXHg)
 
 ## Credits
 Special thanks to:
