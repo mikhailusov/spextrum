@@ -15,5 +15,5 @@ Want some inspiration? Check out your [playlist](https://open.spotify.com/user/1
 
 ## Credits
 Special thanks to:
-@lokesh for [color-thief](https://github.com/lokesh/color-thief)
-@JMPerez for [spotify-web-api-js](https://github.com/JMPerez/spotify-web-api-js)
+**[@lokesh](https://github.com/lokesh)** for [color-thief](https://github.com/lokesh/color-thief)
+**[@JMPerez](https://github.com/JMPerez)** for [spotify-web-api-js](https://github.com/JMPerez/spotify-web-api-js)
