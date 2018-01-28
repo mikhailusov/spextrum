@@ -220,7 +220,7 @@ footer {
                     updatePlayState(false);
                   } else {
                     var playArgs = {};
-                    if(data.devices != '') {
+                    if('devices' in data) {
                       playArgs.device_id = data.devices.devices[0].id;
                     }
                     spotifyApi.play(playArgs).then(function() {
