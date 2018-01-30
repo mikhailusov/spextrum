@@ -60,6 +60,21 @@ footer {
 #login, #loggedin {
     display: none;
 }
+.login-button {
+    background-color: #1DB954;
+    border: none;
+    color: white;
+    padding: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 22px;
+    cursor: pointer;
+}
 .text-overflow {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -136,9 +151,8 @@ footer {
 
 <div id="login">
     <h2>Colorful Spotify experience</h2>
-    <p>What is it?</p>
-    <h3>please log in</h3>
-    <a href="/login">login</a>
+    <h3>Please log in and have Spotify app running in background.</h3>
+    <button class="login-button" onclick="location.href='/login'">Connect with Spotify</button>
 </div>
 
 <div id="loggedin">
