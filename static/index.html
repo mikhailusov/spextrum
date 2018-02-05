@@ -24,6 +24,9 @@ h2 {
     color: white;
     margin-top: 10px;
     margin-bottom: 0px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 h3 {
     font-size: 28px;
@@ -32,6 +35,12 @@ h3 {
     letter-spacing: -1px;
     color: white;
     margin-top: 10px;
+    margin-bottom: 7px;
+    padding-bottom: 5px;
+    padding-top: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 h4 {
     font-size: 38px;
@@ -215,8 +224,11 @@ footer {
         function setTrack(data) {
           var nowPlayingPlaceholder = document.getElementById('now-playing');
             // console.log('Current playback: ', data);
+            var artists = data.item.artists.map(function(obj) {
+                      return obj.name;
+                  }).join(", ");
             nowPlayingPlaceholder.innerHTML = '<h2>'+data.item.name+'</h2>'
-            + '<h3>'+data.item.artists[0].name + '</h3>'
+            + '<h3>'+ artists + '</h3>'
             + '<div id="np-cover-container"><img src="'+data.item.album.images[0].url+'" id="np-cover" /><div id="middle"></div></div>';
 
           var logo = document.getElementById('logo');
