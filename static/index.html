@@ -180,6 +180,9 @@ footer {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.0.1/color-thief.min.js"></script>
 
 <script>
+  var currentTrackId = '';
+  var timerOn = false;
+
       (function() {
 
         /**
@@ -235,6 +238,7 @@ footer {
           logo.innerHTML = '<h4>Spextrum</h4>';
 
           updatePlayState(data.is_playing);
+          this.currentTrackId = data.item.id;
 
           document.getElementById('middle').addEventListener('click', function() {
                   var playButton = document.getElementById("play");
@@ -265,12 +269,17 @@ footer {
               var colors = colorThief.getPalette(img, 2);
               switchBackground(colors);
             }
+
+            // timer for updating tracks
+            if (!timerOn) {
+              setInterval(trackChanged, 2000);
+              timerOn = true;
+            }
         }
 
         function refreshTrack() {
           var nowPlaying = spotifyApi.getMyCurrentPlayingTrack()
               .then(function(data) {
-
                 if (data != '') {
                   setTrack(data);
                 } else {
@@ -295,6 +304,17 @@ footer {
 
                 
 
+          }, function(err) {
+            console.error(err);
+          });
+        }
+
+        function trackChanged() {
+          var nowPlaying = spotifyApi.getMyCurrentPlayingTrack()
+              .then(function(data) {
+                if (data.is_playing && data.item.id != currentTrackId) {
+                  setTrack(data);
+                }
           }, function(err) {
             console.error(err);
           });
