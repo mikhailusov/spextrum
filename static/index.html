@@ -272,7 +272,7 @@ footer {
 
             // timer for updating tracks
             if (!timerOn) {
-              setInterval(trackChanged, 2000);
+              setInterval(autoRefresh, 2000);
               timerOn = true;
             }
         }
@@ -309,7 +309,7 @@ footer {
           });
         }
 
-        function trackChanged() {
+        function autoRefresh() {
           var nowPlaying = spotifyApi.getMyCurrentPlayingTrack()
               .then(function(data) {
                 if (data.is_playing && data.item.id != currentTrackId) {
