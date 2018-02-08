@@ -158,7 +158,7 @@ footer {
     <title>Spextrum</title>
 </head>
 <body>
-<div id="logo"><h1>Spextrum</h1></div>
+<div id="logo"><h1>Spextrum<sup>&beta;</sup></h1></div>
 
 <div id="login">
     <h2>Colorful Spotify experience</h2>
@@ -237,7 +237,7 @@ footer {
             + '<div id="np-cover-container"><img src="'+data.item.album.images[0].url+'" id="np-cover" /><div id="middle"></div></div>';
 
           var logo = document.getElementById('logo');
-          logo.innerHTML = '<h4>Spextrum</h4>';
+          logo.innerHTML = '<h4>Spextrum<sup>&beta;</sup></h4>';
 
           updatePlayState(data.is_playing);
           this.currentTrackId = data.item.id;
