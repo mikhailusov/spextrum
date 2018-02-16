@@ -3,7 +3,8 @@ spextrum
 ## 🌈 Colorful Spotify experience
 
 [Spextrum Beta](http://spextrum.us-west-1.elasticbeanstalk.com/)
-`Note: current version only test in Chrome browser.`
+
+`Note: current version has been tested only in Chrome browser (Version 64.0.3282.167 (Official Build).`
 
 Spextrum it's a web-player for Spotify users which brings more colors and visualisation to listening experience.
 
