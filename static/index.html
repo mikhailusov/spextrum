@@ -4,8 +4,33 @@
 <style type="text/css">
 body {
     font-family: circular,Helvetica,Arial,sans-serif;
-    background: linear-gradient(to right, #14B37D, #00755E);
+    /* background: linear-gradient(to right, #14B37D, #00755E); */
+    background: black;
     min-height: 900px;
+    margin: 0px;
+}
+
+#bg-image {
+  /* Add the blur effect */
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+
+  /* Full height */
+  height: 100%;
+  width: 100%;
+  min-height: 900px;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  z-index:0;
+  position:absolute;
+}
+.content{
+    z-index:10;
+    position:relative;
 }
 h1 {
     font-size: 62px;
@@ -158,8 +183,9 @@ footer {
     <title>Spextrum</title>
 </head>
 <body>
+<div id="bg-image"></div>
+<div class="content">
 <div id="logo"><h1>Spextrum<sup>&beta;</sup></h1></div>
-
 <div id="login">
     <h2>Colorful Spotify experience</h2>
     <h3>Please log in and have Spotify app running in background.</h3>
@@ -203,8 +229,8 @@ footer {
 
         function switchBackground(colors) {
           // var x = Math.random() > 0.5 ? 1 : 0;
-          document.body.style.background =
-          'linear-gradient(to right, '+getRgb(colors[0])+' ,'+getRgb(colors[1])+' ,'+getRgb(colors[0])+')';
+          //document.body.style.background =
+          //'linear-gradient(to right, '+getRgb(colors[0])+' ,'+getRgb(colors[1])+' ,'+getRgb(colors[0])+')';
         }
 
         function getRgb(color) {
@@ -235,6 +261,10 @@ footer {
             nowPlayingPlaceholder.innerHTML = '<h2>'+data.item.name+'</h2>'
             + '<h3>'+ artists + '</h3>'
             + '<div id="np-cover-container"><img src="'+data.item.album.images[0].url+'" id="np-cover" /><div id="middle"></div></div>';
+
+
+            var bgImage = document.getElementById('bg-image');
+            bgImage.style.backgroundImage = 'url("'+data.item.album.images[0].url+'")';
 
           var logo = document.getElementById('logo');
           logo.innerHTML = '<h4>Spextrum<sup>&beta;</sup></h4>';
@@ -304,7 +334,7 @@ footer {
                   });
                 }
 
-                
+
 
           }, function(err) {
             console.error(err);
@@ -397,6 +427,7 @@ footer {
         }
       })();
 </script>
+</div>
 <footer>
 </footer>
 </body>
