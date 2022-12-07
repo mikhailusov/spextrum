@@ -6,7 +6,7 @@
   "dependencies": {
     "config": "~1.29.2",
     "cookie-parser": "^1.4.4",
-    "express": "~4.16.0",
+    "express": "~4.17.3",
     "querystring": "~0.2.0",
     "request": "~2.88.0",
     "spotify-web-api-js": "^0.23.0"
